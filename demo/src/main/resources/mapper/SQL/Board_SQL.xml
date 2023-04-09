@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.demo.mapper.BoardMapper">
+    <select id="getAllBoard" resultType="com.example.demo.model.Board">
+        <![CDATA[
+          SELECT
+              *
+          FROM
+              board
+        ]]>
+    </select>
+
+<!--    <insert id="createBoard" parameterType="com.example.demo.model.Board">
+        <![CDATA[
+          INSERT INTO board
+          (
+              type,
+              title,
+              contents,
+              created_time,
+              member_no,
+              member_rev
+          )
+          VALUES
+          (
+              #{type},
+              #{title},
+              #{contents},
+              NOW(),
+              #{member_no},
+              #{member_rev}
+          )
+        ]]>
+    </insert>-->
+    <select id="getAllGroups" resultType="com.example.demo.model.Group">
+        <![CDATA[
+            SELECT
+              group_code, group_title
+            FROM
+              group_info
+        ]]>
+    </select>
+
+    <select id="getMember" resultType="hashmap">
+        <![CDATA[
+            SELECT
+                m.group_code, name, mail, group_title
+            FROM
+                group_member m
+            JOIN
+                group_info i
+            ON
+                m.group_code = i.group_code
+            ORDER BY group_title
+        ]]>
+    </select>
+
+    <!--영지 추가(5)-->
+    <select id="group_print" resultType="hashmap">
+        <![CDATA[
+            SELECT
+                *
+            FROM
+                subscriber_info
+            ORDER BY
+                group_title ASC
+        ]]>
+    </select>
+
+    <insert id="subsinsert" parameterType="com.example.demo.model.Subscriber">
+        <![CDATA[
+            INSERT INTO subscriber_info
+            (
+                name,
+                email,
+                group_title
+            )
+            VALUES
+            (
+                #{name},
+                #{email},
+                #{group_title}
+            )
+        ]]>
+    </insert>
+
+    <delete id="subsdelete" parameterType="com.example.demo.model.Subscriber">
+        <![CDATA[
+            DELETE
+
+            FROM
+                subscriber_info
+
+            WHERE
+                id = #{id}
+        ]]>
+    </delete>
+
+    <update id="subsupdate" parameterType="hashmap">
+    <![CDATA[
+            UPDATE
+                subscriber_info
+            SET
+                name = #{name},
+                email = #{email},
+                group_title =  #{group_title}
+            WHERE
+                id=#{id}
+        ]]>
+</update>
+
+    <select id="getBoard" resultType="hashmap">
+        <![CDATA[
+            SELECT
+                name, email, group_title
+            FROM
+                subscriber_info
+            WHERE
+                id=#{id}
+        ]]>
+    </select>
+
+    <select id="groupmana" resultType="hashmap">
+        <![CDATA[
+            SELECT
+                group_code, group_title
+            FROM
+                group_info
+        ]]>
+    </select>
+
+    <insert id="groupinsert" parameterType="com.example.demo.model.Group">
+        <![CDATA[
+            INSERT INTO group_info
+            (
+                group_code,
+                group_title
+            )
+            VALUES
+            (
+                #{group_code},
+                #{group_title}
+            )
+        ]]>
+    </insert>
+
+    <delete id="groupdelete" parameterType="com.example.demo.model.Group">
+        <![CDATA[
+            DELETE
+
+            FROM
+                group_info
+
+            WHERE
+                group_code = #{group_code}
+        ]]>
+    </delete>
+
+    <update id="groupupdate" parameterType="hashmap">
+        <![CDATA[
+            UPDATE
+                group_info
+            SET
+                group_title = #{group_title}
+            WHERE
+                group_code=#{group_code}
+        ]]>
+    </update>
+
+    <select id="getGroup" resultType="hashmap">
+        <![CDATA[
+            SELECT
+                group_title
+            FROM
+                group_info
+            WHERE
+                group_code=#{group_code}
+        ]]>
+    </select>
+
+    <insert id="excel_input" parameterType="com.example.demo.model.Subscriber">
+        <![CDATA[
+            INSERT INTO subscriber_info
+            (
+                name,
+                email,
+                group_title
+            )
+            VALUES
+            (
+                #{name},
+                #{email},
+                #{group_title}
+            )
+        ]]>
+    </insert>
+
+    <!--영지 추가(5) end-->
+
+
+</mapper>
