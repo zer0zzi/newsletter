@@ -1,4 +1,4 @@
-newsletter
+#newsletter
 
 ## 프로젝트 소개
 + 'newsletter'는 주소록에 저장되어 있는 누구에게나 원하는 메일을 보낼 수 있는 서비스입니다.
